@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Delta Lake runtime output
+storage/delta_table/*
+!storage/delta_table/.gitkeep
+
+# Spark checkpoints
+/data/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
