@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Parquet outputs (generated at runtime)
+storage/delta_table/**/*.parquet
+data/staging/**/*.parquet
+
+# Model artefacts (generated at runtime)
+models/*.joblib
+
+# Spark checkpoints
+/tmp/spark-checkpoint/
+
+# IDE
+.vscode/
+.idea/
+*.swp
