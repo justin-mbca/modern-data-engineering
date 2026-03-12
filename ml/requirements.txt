@@ -1,0 +1,24 @@
+# AI Healthcare Data Platform – Python dependencies
+
+# Data processing
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.1
+scipy==1.13.0
+pyarrow==16.0.0
+
+# Explainability
+shap==0.45.0
+matplotlib==3.8.3
+
+# Azure integrations
+azure-storage-blob==12.19.1
+azure-identity==1.16.0
+sqlalchemy==2.0.29
+pyodbc==5.1.0
+
+# HTTP
+requests==2.31.0
+
+# Utilities
+python-dotenv==1.0.1

@@ -1,0 +1,17 @@
+# Modern Data Pipeline – Python dependencies
+
+# PySpark + Delta Lake
+pyspark==3.5.1
+delta-spark==3.1.0
+
+# Data quality
+great-expectations==0.18.13
+
+# Monitoring
+prometheus-client==0.20.0
+
+# Workflow orchestration
+apache-airflow==2.8.1
+
+# Utilities
+python-dotenv==1.0.1

@@ -1,0 +1,133 @@
+name: CI – Modern Data Engineering Pipeline
+
+on:
+  push:
+    branches: [main, "copilot/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Lint & static analysis
+  # ---------------------------------------------------------------------------
+  lint:
+    name: Lint (flake8 + black)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install linting tools
+        run: pip install flake8 black
+
+      - name: Black format check
+        run: black --check --diff .
+
+      - name: Flake8 lint
+        run: flake8 . --max-line-length=120 --exclude=.git,__pycache__,*.egg-info
+
+  # ---------------------------------------------------------------------------
+  # Unit tests – data_ingestion / preprocessing
+  # ---------------------------------------------------------------------------
+  test-data-ingestion:
+    name: Tests – data_ingestion
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r data_ingestion/requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: pytest tests/test_health_preprocessing.py -v --tb=short
+
+  # ---------------------------------------------------------------------------
+  # Unit tests – ML (feature store + risk classification)
+  # ---------------------------------------------------------------------------
+  test-ml:
+    name: Tests – ml
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r ml/requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: pytest tests/test_feature_store.py -v --tb=short
+
+  # ---------------------------------------------------------------------------
+  # Unit tests – Real-Time Pipeline (Kafka producer/consumer)
+  # ---------------------------------------------------------------------------
+  test-realtime:
+    name: Tests – real-time pipeline
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r processing/requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run tests
+        run: |
+          pytest tests/test_kafka_producer.py tests/test_kafka_consumer.py -v --tb=short
+
+  # ---------------------------------------------------------------------------
+  # Unit tests – Monitoring
+  # ---------------------------------------------------------------------------
+  test-monitoring:
+    name: Tests – monitoring
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install prometheus-client pytest pytest-cov
+
+      - name: Run tests
+        run: pytest tests/test_monitoring.py -v --tb=short
