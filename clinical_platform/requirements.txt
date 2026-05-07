@@ -1,0 +1,6 @@
+# Clinical Platform API dependencies
+fastapi>=0.100.0
+pydantic>=2.0
+uvicorn[standard]>=0.23.0
+pytest
+requests

@@ -4,3 +4,9 @@ pytest-cov==5.0.0
 black==24.4.2
 flake8==7.0.0
 python-dotenv==1.0.1
+# Clinical Platform API dependencies
+fastapi>=0.100.0
+pydantic>=2.0
+uvicorn[standard]>=0.23.0
+pytest
+requests
