@@ -31,7 +31,7 @@ def ingest_fhir_resource(resource_json: Dict[str, Any]) -> Dict[str, Any]:
         return {"error": f"Unsupported resourceType: {resource_type}"}
     model_cls = FHIR_MODEL_MAP[resource_type]
     try:
-        resource_obj = model_cls.parse_obj(resource_json)
+        resource_obj = model_cls.model_validate(resource_json)
     except ValidationError as e:
         return {"error": "Validation failed", "details": e.errors()}
     normalize_fn = NORMALIZE_MAP[resource_type]

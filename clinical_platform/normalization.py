@@ -22,7 +22,7 @@ def normalize_encounter(encounter: FHIREncounter) -> Dict[str, Any]:
         "encounter_id": encounter.id,
         "patient_id": encounter.subject.get("reference", None),
         "status": encounter.status,
-        "class": encounter.class_.get("code") if encounter.class_ else None,
+        "class": encounter.class_["code"] if encounter.class_ and "code" in encounter.class_ else None,
         "start": encounter.period["start"] if encounter.period and "start" in encounter.period else None,
         "end": encounter.period["end"] if encounter.period and "end" in encounter.period else None,
     }

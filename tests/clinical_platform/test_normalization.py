@@ -22,7 +22,7 @@ def test_normalize_encounter():
     encounter = FHIREncounter(
         id="enc1",
         status="finished",
-        class_={"code": "AMB"},
+        **{"class": {"code": "AMB"}},
         subject={"reference": "Patient/123"},
         period={"start": "2022-01-01T00:00:00Z", "end": "2022-01-01T01:00:00Z"}
     )

@@ -20,13 +20,16 @@ def test_encounter_model():
     encounter = FHIREncounter(
         id="enc1",
         status="finished",
-        class_={"code": "AMB"},
+        **{"class": {"code": "AMB"}},
         subject={"reference": "Patient/123"},
         period={"start": "2022-01-01T00:00:00Z", "end": "2022-01-01T01:00:00Z"}
     )
     assert encounter.id == "enc1"
     assert encounter.status == "finished"
-    assert encounter.class_["code"] == "AMB"
+    # class_ is an alias for 'class', but Pydantic only populates it if the input dict uses the alias
+    # Check both the attribute and the dict
+    assert encounter.class_ is not None
+    assert encounter.class_.get("code") == "AMB"
     assert encounter.subject["reference"] == "Patient/123"
     assert encounter.period["start"] == "2022-01-01T00:00:00Z"
 
